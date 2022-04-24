@@ -104,7 +104,7 @@ footer > section {
 }
 
 .post_teaser > .post_title::before {
-    content: " – "
+    content: " - "
 }
 .post_teaser > .post_title::after {
     font-style: italic;

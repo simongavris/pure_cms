@@ -4,7 +4,7 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 WORKDIR /usr/share/nginx/html
 
 # project artifacts
-COPY ./html_frame .
+COPY ./dist .
 
 RUN nginx -t
 CMD ["nginx", "-g", "daemon off;"]

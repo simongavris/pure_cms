@@ -14,17 +14,15 @@
             </section>
         </header>
         <section id="posts_overview">
+            {% for post in posts %}
             <a class="post_teaser" href="#">
-                <p class="post_date">2022.05.01</p>
-                <p class="post_title">How to add nautilus "Open in Terminator" option</p>
+                <p class="post_date">{{ post.date }}</p>
+                <p class="post_title">{{ post.title }}</p>
             </a>
-            <a class="post_teaser" href="#">
-                <p class="post_date">2022.05.01</p>
-                <p class="post_title">How to add nautilus "Open in Terminator" option</p>
-            </a>
+            {% endfor %}
         </section>
         <footer>
-            <div>Simon Gavris – 2022</div>
+            <div>Simon Gavris - 2022</div>
             <section>
                 <a href="mailto:simon.gavris@gmail.com" target="_blank">Mail</a>
                 <a href="https://www.linkedin.com/in/simon-gavris-723554a9/" target="_blank">LinkedIn</a>
