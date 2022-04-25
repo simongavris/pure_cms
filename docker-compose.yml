@@ -1,4 +1,9 @@
 version: '3'
+
+networks:
+    proxy:
+        external: true
+
 services:
   builder:
     build:
@@ -18,3 +23,11 @@ services:
       - 8080:80
     depends_on:
       - builder
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:blog.bblbrx.de
+      - traefik.docker.network=proxy
+      - traefik.port=80
+      - traefik.protocol=http
+    networks:
+      - proxy
