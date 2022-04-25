@@ -78,7 +78,6 @@ def generate_posts():
         output_path = output_blog_dir + filename + '.html'
         #transpile
         html = markdown.markdown(file_content, extensions=['fenced_code'])
-        print(html)
         #file_to_html(input_path, output_path)
         with open(output_path, 'w') as file:
             file.write(post_template.render(

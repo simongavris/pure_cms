@@ -7,7 +7,6 @@ body {
     font-family: 'Times New Roman', Times, serif;
     background-color: #f3f2ef;
     color: var(--main-color);
-    font-weight: 100;
 }
 
 a {
@@ -19,6 +18,7 @@ p {
 }
 h1, h2, h3 {
     margin: 2vh 0;
+    font-weight: 100;
 }
 main h1 {
     font-size: 60px;
@@ -50,13 +50,14 @@ main h3 {
     align-items: baseline;
     border-bottom: 1px solid var(--main-color);
 }
-header  a {
+header a {
     text-decoration: none;
 }
 #header_links {
     display: grid;
     grid-template-columns: repeat(2, auto);
     justify-content: space-between;
+    align-self: end;
 }
 #header_links > .link_active {
     font-weight: bold;
@@ -124,6 +125,11 @@ footer > section {
     border-bottom: 1px dashed var(--main-color);
     margin-left: 7px;
 }
+
+#post {
+    min-width: 0;
+}
+
 #post pre code {
     font-family: monospace;
 }
@@ -132,4 +138,21 @@ footer > section {
     padding: 1em 1.3em;
     background-color: #e8e8e8;
     border-radius: 2px;
+    min-width: auto;
+    overflow: scroll;
+}
+#post ul {
+    font-size: 19px;
+}
+#post h1 {
+    font-size: 32px;
+}
+#post h2 {
+    font-size: 28px;
+}
+#post h3 {
+    font-size: 26px;
+}
+#post h4 {
+    font-size: 24px;
 }

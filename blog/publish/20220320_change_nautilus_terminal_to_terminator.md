@@ -10,7 +10,7 @@ With [Nautilus Python](https://wiki.gnome.org/Projects/NautilusPython) you can a
 
 Install Nautilus Python with:
 
-```
+```shell
 $ sudo apt install python-nautilus
 ```
 
@@ -36,7 +36,7 @@ $ vim ~/.local/share/nautilus-python/extensions/open-terminator.py
 
 And paste the following code into it:
 
-```
+```python
 import os
 
 from gi.repository import Nautilus, GObject

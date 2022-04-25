@@ -46,7 +46,7 @@ To get some metadata, the file name must be: ***YYYYMMMDD_title.md***. The date 
 
 * **Flask**: web framework to provide endpoints:
   * **GET:posts/** : Get all posts
-  * **GET:posts/<title>**: Get post by title
+  * **GET:posts/**: Get post by title
 * **Waitress**: WSGI server
 
 ## Result
