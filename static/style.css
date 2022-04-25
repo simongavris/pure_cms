@@ -1,5 +1,5 @@
 :root {
-    --main-color: rgb(0, 0, 34);
+    --main-color: #000022;
   }
   
 body {
@@ -46,18 +46,29 @@ main h3 {
 #app > header {
     grid-area: header;
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 4fr 1fr;
     align-items: baseline;
     border-bottom: 1px solid var(--main-color);
 }
 header  a {
     text-decoration: none;
 }
-header > section > a {
+#header_links {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
+}
+#header_links > .link_active {
+    font-weight: bold;
+}
+#header_links > a {
     padding:0 20px;
     font-size: 20px
 }
-header > #header_logo {
+#header_links > a:hover {
+    text-decoration: overline;
+}
+#header_logo {
     font-size: 25px;
 }
 #app > main {
@@ -112,4 +123,13 @@ footer > section {
     content: "Read more";
     border-bottom: 1px dashed var(--main-color);
     margin-left: 7px;
+}
+#post pre code {
+    font-family: monospace;
+}
+
+#post pre {
+    padding: 1em 1.3em;
+    background-color: #e8e8e8;
+    border-radius: 2px;
 }

@@ -2,20 +2,23 @@
 <html>
 <head>
     <title>Simon Gavris - Posts</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <div id="app">
         <header>
-            <a id="header_logo" href="/">Simon Gavris</a>
             <section>
-                <a href="/about">About</a>
+                <a id="header_logo" href="/">Simon Gavris</a>
+            </section>
+            <section id="header_links">
                 <a href="/posts" class="link_active">Posts</a> 
+                <a href="/about">About</a>
             </section>
         </header>
         <section id="posts_overview">
             {% for post in posts %}
-            <a class="post_teaser" href="#">
+            <a class="post_teaser" href="/posts/{{ post.filename }}">
                 <p class="post_date">{{ post.date }}</p>
                 <p class="post_title">{{ post.title }}</p>
             </a>

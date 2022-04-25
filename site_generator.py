@@ -11,7 +11,7 @@ from jinja2 import Environment, FileSystemLoader
 input_dir = 'blog/publish/'
 dist_dir = 'dist/'
 static_dir = 'static/'
-output_blog_dir = 'dist/blog/'
+output_blog_dir = 'dist/posts/'
 output_asstes_dir = 'dist/assets/'
 html_templates_dir = 'templates/'
 
@@ -30,8 +30,17 @@ def file_to_html(input_path, output_path):
     )
 
 def generate_posts():
+
+    root = path.dirname(path.abspath(__file__))
+    env = Environment( loader = FileSystemLoader(html_templates_dir) )
+    posts_template = env.get_template('posts.html.j2')
+    post_template = env.get_template('post.html.j2')
+
+
     posts_files = []
     posts_dirs = []
+
+    #get list of files and dirs in input_dir
     for (dirpath, dirnames, filenames) in walk(input_dir):
         posts_files.extend(filenames)
         posts_dirs.extend(dirnames)
@@ -56,14 +65,25 @@ def generate_posts():
         #parse date from file name
         post['date'] = parser.parse(temp[0]).strftime("%d.%m.%Y")
         #parse title from first header in file
+        file_content = ""
         with open(input_path, 'r') as file:
-            content = file.read()
-            post["title"] = content.split("\n")[0][2:]
+            file_content = file.read()
+            post["title"] = file_content.split("\n")[0][2:]
+
+        filename = f.rsplit('.', 1)[0]
+        #save filename for generating links
+        post['filename'] = filename
         
         #new output file path
-        output_path = output_blog_dir + f.rsplit('.', 1)[0] + '.html'
+        output_path = output_blog_dir + filename + '.html'
         #transpile
-        file_to_html(input_path, output_path)
+        html = markdown.markdown(file_content, extensions=['fenced_code'])
+        print(html)
+        #file_to_html(input_path, output_path)
+        with open(output_path, 'w') as file:
+            file.write(post_template.render(
+                post = html,
+            ))
         posts.append(post)
         
 
@@ -100,8 +120,12 @@ def generate_posts():
                         content = f.read()
                         post["title"] = content.split("\n")[0][2:]
                     
+                    filename = file.rsplit('.', 1)[0]
+                    #save filename for generating links
+                    post['filename'] = filename
+
                     #new output file path
-                    o_file_path = output_blog_dir + file.rsplit('.', 1)[0] + '.html'
+                    o_file_path = output_blog_dir + filename + '.html'
                     
                     file_to_html(i_file_path, o_file_path)
                     #replace the assetes path with new assets path
@@ -111,30 +135,27 @@ def generate_posts():
                     for original_path in asset_paths:
                         filedata = filedata.replace(original_path, asset_paths[original_path])
 
-                    # Write the file out again
+                    # Write the file out again with jinja template this time
                     with open(o_file_path, 'w') as f:
-                        f.write(filedata)
-    
+                        f.write(post_template.render(
+                            post = filedata,
+                        ))
+
                     posts.append(post)
 
                     
     posts.sort(key=lambda x: x["date"], reverse=True)
-    return posts
 
-def fill_htmls(posts):
-    root = path.dirname(path.abspath(__file__))
-    env = Environment( loader = FileSystemLoader(html_templates_dir) )
-    template = env.get_template('posts.html.j2')
-
-    o_filename = path.join(root, 'dist', 'posts.html')
-    with open(o_filename, 'w') as fh:
-        fh.write(template.render(
+    #generate posts overview page
+    with open(dist_dir + 'posts.html', 'w') as fh:
+        fh.write(posts_template.render(
             posts = posts,
         ))
+    return posts
+
 
 def copy_static_files():
     src_files = listdir(static_dir)
-    print(src_files)
     for file_name in src_files:
         full_file_name = path.join(static_dir, file_name)
         if path.isfile(full_file_name):
@@ -142,6 +163,6 @@ def copy_static_files():
 
 if __name__ == "__main__":
     posts = generate_posts()
-    fill_htmls(posts)
+    print(posts)
     copy_static_files()
 
