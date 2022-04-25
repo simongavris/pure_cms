@@ -1,0 +1,22 @@
+#-----Build------
+FROM python:3 as builder
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+RUN python site_generator.py
+
+#-----Deploy------
+
+FROM nginx:1.21.6 as deploy
+
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /usr/share/nginx/html
+
+COPY --from=builder /usr/src/app/dist .
+
+RUN nginx -t
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  website:
+    build:
+      context: ./
+      dockerfile: Dockerfile.deploy
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - 8080:80
