@@ -7,6 +7,7 @@ from os import walk, makedirs, path, listdir
 import shutil
 from dateutil import parser
 from jinja2 import Environment, FileSystemLoader
+import schedule
 
 input_dir = 'blog/publish/'
 dist_dir = 'dist/'
@@ -160,8 +161,16 @@ def copy_static_files():
         if path.isfile(full_file_name):
             shutil.copy(full_file_name, dist_dir)
 
-if __name__ == "__main__":
+def scheduled():
     posts = generate_posts()
     print(posts)
     copy_static_files()
 
+
+if __name__ == "__main__":
+
+    schedule.every(1).minutes.do(scheduled)
+    #run initialy
+    scheduled()
+    while True:
+        schedule.run_pending()
