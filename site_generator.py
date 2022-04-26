@@ -113,9 +113,9 @@ def generate_posts():
                     i_file_path = input_path + file
                     post = {}
                     try:
-                        date_temp = f.split('_', 1)
+                        date_temp = file.split('_', 1)
                     except AttributeError as a_error:
-                        logging.warn("Could get raw date string")
+                        logging.warn("Could get raw date string for " + file)
                         continue
 
                     #parse date from file name
