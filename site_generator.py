@@ -8,6 +8,7 @@ import shutil
 from dateutil import parser
 from jinja2 import Environment, FileSystemLoader
 import schedule
+import logging
 
 input_dir = 'blog/publish/'
 dist_dir = 'dist/'
@@ -111,10 +112,14 @@ def generate_posts():
                 if file.endswith(".md"):
                     i_file_path = input_path + file
                     post = {}
-                    temp = f.split('_', 1)
+                    try:
+                        date_temp = f.split('_', 1)
+                    except AttributeError as a_error:
+                        logging.warn("Could get raw date string")
+                        continue
 
                     #parse date from file name
-                    post['date'] = parser.parse(temp[0]).strftime("%d.%m.%Y")
+                    post['date'] = parser.parse(date_temp[0]).strftime("%d.%m.%Y")
                     #parse title from first header in file
                     with open(i_file_path, 'r') as f:
                         content = f.read()
@@ -142,6 +147,7 @@ def generate_posts():
                         ))
 
                     posts.append(post)
+                    logging.info("created post with title: " + post['title'])
 
                     
     posts.sort(key=lambda x: x["date"], reverse=True)
