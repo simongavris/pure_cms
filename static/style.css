@@ -159,15 +159,15 @@ footer > section {
 #post p {
     text-align: justify;
 }
-#about {
+#app > .about {  
+    padding-top: 20px;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 3fr;
 }
-
-#about > img {
+#app > #about > img {
     max-width: 200px;
 }
-#about > section {
+#app > #about > section {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
