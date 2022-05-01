@@ -164,6 +164,13 @@ footer > section {
     display: grid;
     grid-template-columns: 1fr 3fr;
 }
+
+
+@media (max-width: 768px) {
+    #app > .about { 
+        grid-template-columns: 1fr;
+    }
+}
 #app > #about > img {
     max-width: 200px;
 }
