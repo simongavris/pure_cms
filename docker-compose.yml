@@ -25,7 +25,7 @@ services:
       - builder
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:blog.bblbrx.de
+      - traefik.frontend.rule=Host:simon.gavris.dev
       - traefik.docker.network=proxy
       - traefik.port=80
       - traefik.protocol=http
