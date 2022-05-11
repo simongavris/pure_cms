@@ -10,9 +10,9 @@ services:
       context: ./
       dockerfile: Dockerfile.build
     volumes:
-      - ./blog/:/usr/src/app/blog:ro
+      - /data/posts:/usr/src/app/blog:ro
       - ./dist/:/usr/src/app/dist:rw
-      
+
   website:
     build:
       context: ./
@@ -23,9 +23,8 @@ services:
       - builder
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:simon.gavris.dev
-      - traefik.docker.network=proxy
-      - traefik.port=80
-      - traefik.protocol=http
+      - traefik.http.routers.static-website.rule=Host("simon.gavris.dev")
+      - traefik.http.routers.static-website.entrypoints=websecure
+      - traefik.http.routers.static-website.tls.certresolver=defaultresolver
     networks:
       - proxy
