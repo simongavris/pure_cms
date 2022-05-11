@@ -165,7 +165,6 @@ footer > section {
     grid-template-columns: 1fr 3fr;
 }
 
-
 @media (max-width: 768px) {
     #app > .about { 
         grid-template-columns: 1fr;
