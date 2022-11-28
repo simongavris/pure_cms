@@ -9,6 +9,7 @@ from dateutil import parser
 from jinja2 import Environment, FileSystemLoader
 import schedule
 import logging
+from datetime import datetime
 
 input_dir = 'blog/publish/'
 dist_dir = 'dist/'
@@ -150,7 +151,7 @@ def generate_posts():
                     logging.info("created post with title: " + post['title'])
 
                     
-    posts.sort(key=lambda x: x["date"], reverse=True)
+    posts.sort(key=lambda x: datetime.strptime( x["date"], "%d.%m.%Y"), reverse=True)
 
     #generate posts overview page
     with open(dist_dir + 'posts.html', 'w') as fh:
