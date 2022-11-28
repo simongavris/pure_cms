@@ -21,7 +21,7 @@ html_templates_dir = 'templates/'
 #relative path to assets from blogs
 rel_path_assets_blog = '../assets/'
 
-valid_asset_file_extension = ('.png', '.jpg', '.jpeg')
+valid_asset_file_extension = ('.png', '.jpg', '.jpeg', '.html')
 
 
 
