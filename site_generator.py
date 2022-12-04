@@ -107,7 +107,7 @@ def generate_posts():
                     o_path = output_asstes_dir + file
                     shutil.copyfile(i_path, o_path)
                     #store original path an d
-                    asset_paths[file] = rel_path_assets_blog +  file
+                    asset_paths[file] = rel_path_assets_blog + file
                     
                 # transpile all md into html and put to output_blog_dir
                 if file.endswith(".md"):
@@ -123,8 +123,8 @@ def generate_posts():
                     post['date'] = parser.parse(date_temp[0]).strftime("%d.%m.%Y")
                     #parse title from first header in file
                     with open(i_file_path, 'r') as f:
-                        content = f.read()
-                        post["title"] = content.split("\n")[0][2:]
+                        file_content = f.read()
+                        post["title"] = file_content.split("\n")[0][2:]
                     
                     filename = file.rsplit('.', 1)[0]
                     #save filename for generating links
@@ -133,18 +133,15 @@ def generate_posts():
                     #new output file path
                     o_file_path = output_blog_dir + filename + '.html'
                     
-                    file_to_html(i_file_path, o_file_path)
-                    #replace the assetes path with new assets path
-                    with open(o_file_path, 'r') as f :
-                        filedata = f.read()
+                    html = markdown.markdown(file_content, extensions=['fenced_code'])
 
                     for original_path in asset_paths:
-                        filedata = filedata.replace(original_path, asset_paths[original_path])
+                        html = html.replace(original_path, asset_paths[original_path])
 
                     # Write the file out again with jinja template this time
                     with open(o_file_path, 'w') as f:
                         f.write(post_template.render(
-                            post = filedata,
+                            post = html,
                         ))
 
                     posts.append(post)
